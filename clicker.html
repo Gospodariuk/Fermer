@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Клікер Телеграм</title>
+    <style>
+        body {
+            background-color: #8FBC8F; /* Колір зеленої трави */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #clicker-img {
+            width: 200px;
+            height: 200px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        #counter {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #progress-bar-container {
+            width: 80%;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+        #progress-bar {
+            height: 30px;
+            width: 0%;
+            background-color: #32CD32; /* Лайм зелений */
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="counter">Кліки: 0</div>
+    <img id="clicker-img" src="your_photo.webp" alt="Your Photo">
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const maxLevels = 10;
+        const clicksPerLevel = 25;
+
+        const counter = document.getElementById('counter');
+        const progressBar = document.getElementById('progress-bar');
+        const clickerImg = document.getElementById('clicker-img');
+
+        clickerImg.addEventListener('click', () => {
+            clickCount++;
+            const currentLevel = Math.min(Math.floor(clickCount / clicksPerLevel) + 1, maxLevels);
+            const currentLevelClicks = clickCount % clicksPerLevel;
+            const progressPercentage = (currentLevelClicks / clicksPerLevel) * 100;
+
+            counter.textContent = `Кліки: ${clickCount}`;
+            progressBar.style.width = `${progressPercentage}%`;
+
+            if (currentLevel > maxLevels) {
+                counter.textContent += ' (Максимальний рівень досягнуто)';
+            }
+        });
+    </script>
+
+</body>
+</html>
